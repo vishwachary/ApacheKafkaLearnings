@@ -1,3 +1,28 @@
+kafka---
+
+Kafka: One Partition and Two Consumers
+The outcome of this scenario depends entirely on whether the two consumers belong to the same consumer group or different consumer groups.
+
+Scenario 1: Same Consumer Group 🧑‍🤝‍🧑
+Behavior: Only one of the two consumers will be active and receive messages.
+
+Assignment: Kafka guarantees that a partition can be consumed by at most one consumer within a single consumer group. The partition will be assigned to one consumer (e.g., Consumer A).
+
+Other Consumer: The second consumer (Consumer B) will remain idle and acts as a failover backup.
+
+Result: The messages are processed exactly once by the consumer group, and message ordering is preserved.
+
+Scenario 2: Different Consumer Groups 📧
+Behavior: Both consumers will be active and receive all the messages.
+
+Assignment: Each consumer belongs to a different logical application and maintains its own independent offset (read position) for the partition.
+
+Result: The messages are processed multiple times (once by each consumer group). This is the standard pattern for multiple applications needing to read the same data stream for different purposes.
+
+Key Takeaway for Scaling
+Since partitions are the unit of parallelism in Kafka, having only one partition means your single consumer group has no parallel processing. To allow both consumers in a single group to process messages simultaneously, you must increase the number of partitions to at least two.
+
+
 # ApacheKafkaLearnings
 
 Article from https://www.instaclustr.com/education/apache-kafka/spring-boot-with-apache-kafka-tutorial-and-best-practices/ 

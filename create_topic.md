@@ -6,3 +6,6 @@ kafka-topics.bat --create --topic publication-render-markdown --bootstrap-server
 DELETE  TOPIC
 
 
+./kafka-topics.bat --list --bootstrap-server localhost:9092
+
+
